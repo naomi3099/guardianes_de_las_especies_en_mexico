@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guardianes de las Especies de México</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --azul-marino: #2C3E50;
+            --gris-carbon: #5D6D7E;
+            --verde-pasto: #2ECC71;
+            --azul-cielo: #3498DB;
+            --naranja: #E67E22;
+            --crema-arena: #FDF5E6;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--crema-arena);
+            color: var(--gris-carbon);
+            scroll-behavior: smooth;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1, h2, h3, h4, h5, .navbar-brand {
+            font-family: 'Fredoka', cursive;
+            color: var(--azul-marino);
+        }
+
+        /* --- diseño del nav --- */
+        .navbar {
+            background-color: var(--azul-cielo) !important;
+            border-bottom: 5px solid rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+        }
+
+        .navbar-brand {
+            font-size: 1.6rem;
+            color: white !important;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+        }
+
+        .nav-link {
+            color: white !important;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-mx: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--crema-arena) !important;
+            transform: scale(1.05);
+        }
+
+        /* --- HERO / CARRUSEL --- */
+        .carousel-item {
+            height: 65vh;
+            min-height: 400px;
+        }
+
+        .carousel-caption {
+            bottom: 25%;
+            background: rgba(44, 62, 80, 0.85);
+            padding: 30px;
+            border-radius: 20px;
+            border-bottom: 5px solid var(--naranja);
+        }
+
+        /* --- TARJETAS DE ANIMALES (CARDS) --- */
+        .card-animal {
+            border: none;
+            border-radius: 20px;
+            background-color: white;
+            border-bottom: 6px solid var(--verde-pasto);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card-animal:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
+        }
+
+        .img-placeholder-card {
+            font-size: 4.5rem;
+            padding: 25px 0;
+            background-color: #f8f9fa;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+
+        /* --- BOTONES FLAT --- */
+        .btn-flat {
+            background-color: var(--naranja);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 28px;
+            font-weight: 700;
+            font-size: 1rem;
+            border-bottom: 4px solid #d35400;
+            transition: all 0.1s ease;
+        }
+
+        .btn-flat:hover {
+            background-color: #e67e22;
+            color: white;
+            transform: translateY(2px);
+            border-bottom: 2px solid #d35400;
+        }
+
+        .btn-flat:active {
+            transform: translateY(4px);
+            border-bottom: none;
+        }
+
+        /* --- SECCIONES --- */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-titulo {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-titulo::after {
+            content: '';
+            display: block;
+            width: 60%;
+            height: 6px;
+            background-color: var(--verde-pasto);
+            margin: 8px auto 0 auto;
+            border-radius: 3px;
+        }
+
+        .bg-verde-claro {
+            background-color: #E8F8F5;
+        }
+
+        /* --- ACCORDION FLAT --- */
+        .accordion-item {
+            border: 2px solid #E5E7E9;
+            border-radius: 15px !important;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .accordion-button {
+            font-family: 'Fredoka', cursive;
+            font-size: 1.25rem;
+            color: var(--azul-marino) !important;
+            background-color: white !important;
+            box-shadow: none !important;
+        }
+
+        .accordion-button:not(.collapsed) {
+            background-color: #EBF5FB !important;
+            border-bottom: 2px solid var(--azul-cielo);
+        }
+
+        /* --- QUIZ INTERACTIVO --- */
+        .quiz-container {
+            background-color: white;
+            border-radius: 25px;
+            padding: 35px;
+            border: 3px solid var(--azul-cielo);
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .quiz-option {
+            background-color: #F2F4F4;
+            border: 2px solid #BDC3C7;
+            border-radius: 15px;
+            padding: 12px 20px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .quiz-option:hover {
+            background-color: #E8F8F5;
+            border-color: var(--verde-pasto);
+        }
+
+        .quiz-option.correct {
+            background-color: #D4EFDF;
+            border-color: var(--verde-pasto);
+            color: #196F3D;
+        }
+
+        .quiz-option.incorrect {
+            background-color: #FADBD8;
+            border-color: #E74C3C;
+            color: #78281F;
+        }
+
+        /* --- MODAL DECORACIÓN --- */
+        .modal-content {
+            border-radius: 20px;
+            border: none;
+            overflow: hidden;
+        }
+
+        .img-box-modal {
+            background-color: #F4F6F7;
+            border: 3px dashed var(--azul-cielo);
+            border-radius: 15px;
+        }
+		
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#">🇲🇽 GUARDIANES DE LA NATURALEZA</a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContenido" aria-controls="navbarContenido" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContenido">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#que-son">¿Qué son?</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#especies">Nuestros Amigos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#problemas">El Planeta</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#mision">Misión Rescate</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#juegos">Zona de Juegos</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <header id="inicio" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#inicio" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#inicio" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="d-flex align-items-center justify-content-center h-100 bg-success bg-gradient text-white">
+                    <div class="carousel-caption">
+                        <h1 class="display-4 fw-bold text-white">¡Hola, Futuro Guardián!</h1>
+                        <p class="fs-4">Acompáñanos en una gran aventura para salvar a los animales más maravillosos y únicos de todo México.</p>
+                        <a href="#especies" class="btn btn-flat mt-2">Empezar Aventura 🚀</a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="d-flex align-items-center justify-content-center h-100 bg-primary bg-gradient text-white">
+                    <div class="carousel-caption">
+                        <h1 class="display-4 fw-bold text-white">Especies Sorprendentes</h1>
+                        <p class="fs-4">Descubre datos curiosos, superpoderes naturales y cómo proteger el hogar de tus amigos animales.</p>
+                        <a href="#juegos" class="btn btn-flat mt-2">Ir a los Juegos 🎮</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#inicio" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#inicio" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Siguiente</span>
+        </button>
+    </header>
+
+
+    <section id="que-son" class="container text-center">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h2 class="section-titulo">¿Qué son las Especies Endémicas?</h2>
+                <p class="fs-5 mt-4 leading-lg">
+                    ¡Son animales súper especiales! Las especies <strong>endémicas</strong> son aquellas que <strong>solo viven en un lugar específico del mundo</strong>. Eso significa que los animalitos que vas a ver en este sitio solo nacen y viven de forma natural en los cielos, mares, bosques o selvas de nuestro hermoso México. <strong>¡Si no los cuidamos aquí, desaparecerán de todo el planeta!</strong>
+                </p>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="especies" class="bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-titulo">Nuestros 5 Amigos Endémicos</h2>
+                <p class="fs-5 text-muted">Haz clic en el botón de cada tarjeta para descubrir todas sus sorpresas y fichas técnicas.</p>
+            </div>
+            
+            <div class="row g-4 justify-content-center">
+                
+                <div class="col-sm-10 col-md-6 col-lg-4">
+                    <div class="card card-animal h-100 shadow-sm text-center">
+                        <div class="img-placeholder-card">🦎</div>
+                        <div class="card-body p-4">
+                            <h3 class="card-title h4">Ajolote Mexicano</h3>
+                            <p class="card-text text-muted">¡El asombroso monstruo acuático que puede regenerar partes de su cuerpo!</p>
+                            <button class="btn btn-flat mt-2" data-bs-toggle="modal" data-bs-target="#modalAjolote">Ver Ficha Completa</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-10 col-md-6 col-lg-4">
+                    <div class="card card-animal h-100 shadow-sm text-center">
+                        <div class="img-placeholder-card">🐬</div>
+                        <div class="card-body p-4">
+                            <h3 class="card-title h4">Vaquita Marina</h3>
+                            <p class="card-text text-muted">La criatura marina más pequeña, tímida y hermosa de nuestros océanos.</p>
+                            <button class="btn btn-flat mt-2" data-bs-toggle="modal" data-bs-target="#modalVaquita">Conóceme Aquí</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-10 col-md-6 col-lg-4">
+                    <div class="card card-animal h-100 shadow-sm text-center">
+                        <div class="img-placeholder-card">🐆</div>
+                        <div class="card-body p-4">
+                            <h3 class="card-title h4">Jaguar</h3>
+                            <p class="card-text text-muted">El poderoso y sagrado rey de los laberintos de las selvas del sur.</p>
+                            <button class="btn btn-flat mt-2" data-bs-toggle="modal" data-bs-target="#modalJaguar">Ver Ficha Completa</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-10 col-md-6 col-lg-4">
+                    <div class="card card-animal h-100 shadow-sm text-center">
+                        <div class="img-placeholder-card">🐺</div>
+                        <div class="card-body p-4">
+                            <h3 class="card-title h4">Lobo Mexicano</h3>
+                            <p class="card-text text-muted">El inteligente guardián que canta a la luna en las montañas del norte.</p>
+                            <button class="btn btn-flat mt-2" data-bs-toggle="modal" data-bs-target="#modalLobo">Descubrir Secretos</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-10 col-md-6 col-lg-4">
+                    <div class="card card-animal h-100 shadow-sm text-center">
+                        <div class="img-placeholder-card">🐰</div>
+                        <div class="card-body p-4">
+                            <h3 class="card-title h4">Teporingo</h3>
+                            <p class="card-text text-muted">El pequeño y veloz conejito saltarín que silba en las faldas de los grandes volcanes.</p>
+                            <button class="btn btn-flat mt-2" data-bs-toggle="modal" data-bs-target="#modalTeporingo">Conóceme Aquí</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <section id="problemas" class="bg-verde-claro">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-5 text-center text-lg-start">
+                    <h2 class="section-titulo">¿Qué Amenaza a Nuestros Amigos?</h2>
+                    <p class="fs-5 mt-3">Lamentablemente, las actividades de las personas están dañando la naturaleza de nuestro país. Haz clic en cada problema para conocer qué está pasando.</p>
+                </div>
+                <div class="col-lg-7">
+                    <div class="accordion" id="acordeonProblemas">
+                        
+                        <div class="accordion-item shadow-sm">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c1" aria-expanded="true" aria-controls="c1">
+                                    🌳 1. La Deforestación (Tala de Árboles)
+                                </button>
+                            </h3>
+                            <div id="c1" class="accordion-collapse collapse show" data-bs-parent="#acordeonProblemas">
+                                <div class="accordion-body fs-6 text-muted">
+                                    Cortar demasiados árboles de forma descontrolada deja a animales como el <strong>Jaguar</strong> y el <strong>Lobo Mexicano</strong> sin un refugio seguro para dormir, esconderse o encontrar alimento. ¡Las selvas y bosques son sus casas naturales!
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item shadow-sm">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c2" aria-expanded="false" aria-controls="c2">
+                                    🗑️ 2. La Contaminación del Agua y Suelo
+                                </button>
+                            </h3>
+                            <div id="c2" class="accordion-collapse collapse" data-bs-parent="#acordeonProblemas">
+                                <div class="accordion-body fs-6 text-muted">
+                                    Tirar plásticos, químicos o aguas sucias a los ríos de Xochimilco y mares del Golfo enferma gravemente al <strong>Ajolote</strong> y a la <strong>Vaquita Marina</strong>. El agua contaminada les impide respirar bien y destruye su comida.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item shadow-sm">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c3" aria-expanded="false" aria-controls="c3">
+                                    🏹 3. La Caza Ilegal y Redes de Pesca
+                                </button>
+                            </h3>
+                            <div id="c3" class="accordion-collapse collapse" data-bs-parent="#acordeonProblemas">
+                                <div class="accordion-body fs-6 text-muted">
+                                    Capturar ilegalmente a estos animales por comercio, miedo o colocar de forma irresponsable redes gigantes de pesca (donde la <strong>Vaquita Marina</strong> se atrapa por accidente) reduce drásticamente el número de ejemplares vivos.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item shadow-sm">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c4" aria-expanded="false" aria-controls="c4">
+                                    🌍 4. El Cambio Climático
+                                </button>
+                            </h3>
+                            <div id="c4" class="accordion-collapse collapse" data-bs-parent="#acordeonProblemas">
+                                <div class="accordion-body fs-6 text-muted">
+                                    El aumento del calor en todo el mundo altera las temperaturas de los hogares de los animales. Por ejemplo, en los volcanes donde vive el <strong>Teporingo</strong>, el clima seco provoca incendios forestales que queman su vegetación.
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="mision" class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-titulo">Tu Misión para Salvar el Planeta</h2>
+            <p class="fs-5 text-muted">¡Tú tienes el poder de ayudar desde casa con estas sencillas acciones ecológicas!</p>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-6 col-lg-3">
+                <div class="alert alert-success h-100 text-center p-4 border-0 shadow-sm" style="border-radius: 20px;">
+                    <span class="display-5 d-block mb-3">♻️</span>
+                    <h4 class="fw-bold text-success">Separa y Recicla</h4>
+                    <p class="small text-dark mb-0">Clasifica la basura orgánico e inorgánica en casa para evitar que llegue a ríos o áreas naturales.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="alert alert-info h-100 text-center p-4 border-0 shadow-sm" style="border-radius: 20px;">
+                    <span class="display-5 d-block mb-3">💧</span>
+                    <h4 class="fw-bold text-info">Ahorra el Agua</h4>
+                    <p class="small text-dark mb-0">Cierra bien las llaves mientras te lavas las manos o los dientes. ¡Cada gota cuenta para los lagos!</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="alert alert-warning h-100 text-center p-4 border-0 shadow-sm" style="border-radius: 20px;">
+                    <span class="display-5 d-block mb-3">🚯</span>
+                    <h4 class="fw-bold text-warning text-dark">No tires Basura</h4>
+                    <p class="small text-dark mb-0">Cuando visites bosques, playas o volcanes, guarda tus desperdicios y mantén limpio el hogar animal.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="alert alert-danger h-100 text-center p-4 border-0 shadow-sm" style="border-radius: 20px; background-color: #FADBD8;">
+                    <span class="display-5 d-block mb-3">📢</span>
+                    <h4 class="fw-bold text-danger">Pasa la Voz</h4>
+                    <p class="small text-dark mb-0">Platícale a tus amigos y familiares lo importantes que son estas especies. ¡Creemos conciencia juntos!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="juegos" class="bg-light border-top">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-titulo">Zona de Juegos del Guardián</h2>
+                <p class="fs-5 text-muted">¡Diviértete con nuestros dos juegos interactivos y demuestra tus superpoderes de explorador!</p>
+            </div>
+
+            <ul class="nav nav-pills justify-content-center mb-4" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active btn-flat mx-2" id="pills-trivia-tab" data-bs-toggle="pill" data-bs-target="#pills-trivia" type="button" role="tab" aria-controls="pills-trivia" aria-selected="true">🧠 Trivia Ambiental</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link btn-flat mx-2" id="pills-memorama-tab" data-bs-toggle="pill" data-bs-target="#pills-memorama" type="button" role="tab" aria-controls="pills-memorama" aria-selected="false" onclick="inicializarMemorama()">🧩 Memorama de Especies</button>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="pills-tabContent">
+                
+                <div class="tab-pane fade show active" id="pills-trivia" role="tabpanel" aria-labelledby="pills-trivia-tab">
+                    <div class="quiz-container shadow-sm">
+                        <div id="quiz-box">
+                            <h3 id="quiz-pregunta" class="h4 text-center mb-4">Cargando pregunta...</h3>
+                            <div id="quiz-opciones"></div>
+                        </div>
+                        <div id="quiz-resultado" class="text-center d-none">
+                            <span class="display-3 d-block mb-3">🎉 🏅</span>
+                            <h3 class="fw-bold text-success">¡Increíble Trabajo!</h3>
+                            <p class="fs-5">Has respondido correctamente las preguntas de la trivia ambiental.</p>
+                            <p class="fw-bold text-dark fs-4">¡Ya eres un Guardián Oficial de México!</p>
+                            <button class="btn btn-flat mt-3" onclick="reiniciarQuiz()">Volver a Jugar 🔄</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="pills-memorama" role="tabpanel" aria-labelledby="pills-memorama-tab">
+                    <div class="quiz-container shadow-sm text-center" style="max-width: 750px;">
+                        <h3 class="h4 mb-3">¡Encuentra las Parejas de Animales!</h3>
+                        <p class="text-muted small mb-4">Haz clic en las tarjetas para voltearlas y emparejar a nuestros amigos endémicos.</p>
+                        
+                        <div id="tablero-memorama" class="row row-cols-4 g-3 justify-content-center mx-auto" style="max-width: 500px;">
+                            </div>
+
+                        <div id="memorama-felicitacion" class="mt-4 d-none">
+                            <div class="alert alert-success border-0 rounded-4 p-3 fw-bold fs-5 text-success">
+                                ¡Felicidades, Guardián! 🦎 🐬 🐆 ¡Tienes una memoria de elefante! 
+                                <br>
+                                <button class="btn btn-flat mt-3" onclick="inicializarMemorama()">Jugar otra vez 🔄</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .card-memo {
+            height: 100px;
+            cursor: pointer;
+            perspective: 1000px;
+        }
+        .card-memo-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .card-memo.flipped .card-memo-inner {
+            transform: rotateY(180px);
+        }
+        .card-memo-front, .card-memo-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            font-size: 2.5rem;
+            user-select: none;
+        }
+        /* Reverso de la tarjeta (Cerrada) */
+        .card-memo-front {
+            background-color: var(--azul-marino);
+            color: white;
+            border: 3px solid white;
+        }
+        /* Frente de la tarjeta (Abierta) */
+        .card-memo-back {
+            background-color: white;
+            border: 3px solid var(--verde-pasto);
+            transform: rotateY(180px);
+        }
+        /* Estilo para los botones de pestañas cuando no están activos */
+        .nav-pills .nav-link {
+            background-color: var(--gris-carbon);
+            color: white !important;
+            border-bottom: 4px solid #34495e;
+        }
+        .nav-pills .nav-link.active {
+            background-color: var(--naranja) !important;
+            border-bottom: 4px solid #d35400;
+        }
+    </style>
+	<button id="btn-musica" class="btn shadow" style="position: fixed; bottom: 20px; left: 20px; z-index: 2000; background-color: var(--naranja); color: white; border-radius: 50%; width: 60px; height: 60px; font-size: 1.8rem; border: 3px solid white; border-bottom: 5px solid #d35400;">
+        🔈
+    </button>
+
+    <audio id="musica-fondo" loop src="audio/musica_ambiente.mp3"></audio>
+    <audio id="sonido-correcto" src="audio/correcto.mp3"></audio>
+    <audio id="sonido-victoria" src="audio/victoria.mp3"></audio>
+	<footer class="bg-dark text-white text-center py-4 border-top border-secondary">
+        <div class="container">
+            <p class="mb-1 fw-bold">🐢 Guardianes de las Especies de México &copy; 2026</p>
+            <p class="small text-secondary mb-0">Proyecto Final • Diseñado por Naomi García Martínez</p>
+        </div>
+    </footer>
+
+
+    <div class="modal fade" id="modalAjolote" tabindex="-1" aria-labelledby="ajoloteLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header text-white" style="background-color: var(--azul-cielo);">
+                    <h5 class="modal-title fs-4" id="ajoloteLabel">Ficha del Ajolote 🦎</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="text-center mb-4 p-3 img-box-modal">
+                        <img src="imagenes/AJOLOTE.jpg" alt="Ilustración de Ajolote Flat Design" class="img-fluid" style="max-height: 220px; object-fit: contain;">
+                        <p class="text-muted small mt-2 mb-0">¡Hola guardian!, si quieres conocerme más aqui te dejo información.</p>
+                    </div>
+
+                    <div class="text-center">
+                        <p class="fs-4 mb-1"><strong>Nombre común:</strong> Ajolote Mexicano</p>
+                        <p class="fs-5 mb-3 text-muted"><em>Nombre científico: Ambystoma mexicanum</em></p>
+                        <div class="mb-4 p-2 bg-danger bg-opacity-10 text-danger rounded fw-bold d-inline-block px-4">
+                            ⚠️ ESTADO DE CONSERVACIÓN: EN PELIGRO CRÍTICO DE EXTINCIÓN
+                        </div>
+                    </div>
+
+                    <div class="text-start border-top pt-3 fs-6">
+                        <p class="mb-2">🏠 <strong>Hábitat natural:</strong> Vive únicamente en el complejo sistema de canales e islas flotantes (chinampas) del lago acuático de Xochimilco, al sur de la Ciudad de México.</p>
+                        <p class="mb-2">⭐ <strong>Dato Curioso e Increíble:</strong> ¡Tiene el superpoder de la eterna juventud y la cura rápida! Puede volver a hacer crecer partes de su cuerpo perdidas de forma exacta: patas, cola, ojos y hasta partes de su corazón y cerebro quedan como nuevas si se lastima.</p>
+                        <p class="mb-2">🚨 <strong>Amenazas ambientales:</strong> La alta contaminación química y orgánica del agua, el avance desordenado de las zonas urbanas y la introducción de peces invasores (como carpas) que se devoran a sus crías.</p>
+                        <p class="mb-0">🌿 <strong>Importancia ecológica:</strong> Sirve como un termómetro ecológico. Es un gran bioindicador de la calidad ambiental; si los ajolotes desaparecen, avisa directamente que el ecosistema de agua dulce se encuentra gravemente enfermo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalVaquita" tabindex="-1" aria-labelledby="vaquitaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header text-white" style="background-color: var(--azul-cielo);">
+                    <h5 class="modal-title fs-4" id="vaquitaLabel">Ficha de la Vaquita Marina 🌊</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="text-center mb-4 p-3 img-box-modal">
+                        <img src="imagenes/VAQUITA MARINA.jpg" alt="Ilustración de Vaquita Marina Flat Design" class="img-fluid" style="max-height: 220px; object-fit: contain;">
+                        <p class="text-muted small mt-2 mb-0">¡Hola guardian!, si quieres conocerme más aqui te dejo información.</p>
+                    </div>
+
+                    <div class="text-center">
+                        <p class="fs-4 mb-1"><strong>Nombre común:</strong> Vaquita Marina</p>
+                        <p class="fs-5 mb-3 text-muted"><em>Nombre científico: Phocoena sinus</em></p>
+                        <div class="mb-4 p-2 bg-danger bg-opacity-10 text-danger rounded fw-bold d-inline-block px-4">
+                            ⚠️ ESTADO DE CONSERVACIÓN: EN PELIGRO CRÍTICO DE EXTINCIÓN
+                        </div>
+                    </div>
+
+                    <div class="text-start border-top pt-3 fs-6">
+                        <p class="mb-2">🏠 <strong>Hábitat natural:</strong> Habita exclusivamente en las aguas del Alto Golfo de California en México. No existe en ningún otro rincón del océano de todo el mundo.</p>
+                        <p class="mb-2">⭐ <strong>Dato Curioso e Increíble:</strong> Es la cetácea o marsopa más pequeñita de la Tierra. Se comunica bajo el mar mediante ecos e impulsos sonoros de frecuencia tan alta que se asemejan al trino de los pájaros silvestres.</p>
+                        <p class="mb-2">🚨 <strong>Amenazas ambientales:</strong> Su mayor peligro son las inmensas redes fijas de enmalle que cazadores usan ilegalmente para capturar a otro pez llamado Totoaba. Las vaquitas quedan atrapadas ahí por error y mueren ahogadas al no poder subir a tomar aire.</p>
+                        <p class="mb-0">🌿 <strong>Importancia ecológica:</strong> Al encontrarse al final de su cadena alimenticia marina, ayuda a regular el crecimiento correcto de poblaciones pequeñas de calamares y crustáceos de fondo, logrando un mar balanceado.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalJaguar" tabindex="-1" aria-labelledby="jaguarLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header text-white" style="background-color: var(--azul-cielo);">
+                    <h5 class="modal-title fs-4" id="jaguarLabel">Ficha del Jaguar 🐆</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="text-center mb-4 p-3 img-box-modal">
+                        <img src="imagenes/JAGUAR.jpg" alt="Ilustración de Jaguar Flat Design" class="img-fluid" style="max-height: 220px; object-fit: contain;">
+                        <p class="text-muted small mt-2 mb-0">¡Hola guardian!, si quieres conocerme más aqui te dejo información.</p>
+                    </div>
+
+                    <div class="text-center">
+                        <p class="fs-4 mb-1"><strong>Nombre común:</strong> Jaguar</p>
+                        <p class="fs-5 mb-3 text-muted"><em>Nombre científico: Panthera onca</em></p>
+                        <div class="mb-4 p-2 bg-warning bg-opacity-10 text-warning text-dark rounded fw-bold d-inline-block px-4">
+                            ⚠️ ESTADO DE CONSERVACIÓN: EN PELIGRO / CASI AMENAZADO
+                        </div>
+                    </div>
+
+                    <div class="text-start border-top pt-3 fs-6">
+                        <p class="mb-2">🏠 <strong>Hábitat natural:</strong> Se localiza principalmente en las selvas tropicales húmedas del sur (como los laberintos verdes de Chiapas) y en los sistemas de manglares costeros de Yucatán.</p>
+                        <p class="mb-2">⭐ <strong>Dato Curioso e Increíble:</strong> ¡A este felino le fascina el agua! Al contrario de los felinos caseros comunes, el jaguar es un excelente atleta acuático que cruza ríos grandes nadando velozmente para refrescarse del calor de la selva.</p>
+                        <p class="mb-2">🚨 <strong>Amenazas ambientales:</strong> La pérdida masiva de selva nativa derribada para sembrar campos agrícolas fragmenta sus caminos, forzándolo a caminar desprotegido. También se ve amenazado por el tráfico ilegal de su piel moteada.</p>
+                        <p class="mb-0">🌿 <strong>Importancia ecológica:</strong> Es una "especie paraguas". Al estar al tope de la cadena alimenticia terrestre, cuidando al jaguar y a las extensiones de tierra donde camina, salvamos al mismo tiempo a miles de plantas e insectos pequeños que dependen de ese bosque.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalLobo" tabindex="-1" aria-labelledby="loboLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header text-white" style="background-color: var(--azul-cielo);">
+                    <h5 class="modal-title fs-4" id="loboLabel">Ficha del Lobo Mexicano 🐺</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="text-center mb-4 p-3 img-box-modal">
+                        <img src="imagenes/LOBO MEXICANO.jpg" alt="Ilustración de Lobo Flat Design" class="img-fluid" style="max-height: 220px; object-fit: contain;">
+                        <p class="text-muted small mt-2 mb-0">¡Hola guardian!, si quieres conocerme más aqui te dejo información.</p>
+                    </div>
+
+                    <div class="text-center">
+                        <p class="fs-4 mb-1"><strong>Nombre común:</strong> Lobo Gris Mexicano</p>
+                        <p class="fs-5 mb-3 text-muted"><em>Nombre científico: Canis lupus baileyi</em></p>
+                        <div class="mb-4 p-2 bg-danger bg-opacity-10 text-danger rounded fw-bold d-inline-block px-4">
+                            ⚠️ ESTADO DE CONSERVACIÓN: EN PELIGRO CRÍTICO DE EXTINCIÓN (En recuperación)
+                        </div>
+                    </div>
+
+                    <div class="text-start border-top pt-3 fs-6">
+                        <p class="mb-2">🏠 <strong>Hábitat natural:</strong> Habita las zonas boscosas de pinos y encinos de las frías zonas montañosas de la Sierra Madre Occidental, en los estados del norte de la República Mexicana.</p>
+                        <p class="mb-2">⭐ <strong>Dato Curioso e Increíble:</strong> Su manada familiar es una de las más unidas del reino animal. Son extremadamente leales y organizados entre sí, y coordinan cantos y aullidos grupales mágicos que viajan kilómetros sobre las copas de los pinos.</p>
+                        <p class="mb-2">🚨 <strong>Amenazas ambientales:</strong> Históricamente, fueron víctimas de la cacería masiva y envenenamientos causados por mitos falsos sobre su peligro. En la actualidad, sufren por la escasez de venados silvestres para comer y la división de sus bosques.</p>
+                        <p class="mb-0">🌿 <strong>Importancia ecológica:</strong> Mantiene el balance y la vitalidad del bosque. Al controlar de forma natural el exceso de venados o conejos, evita que se devoren los brotes tiernos de plantas, logrando que los árboles crezcan sanos y retengan agua en los suelos.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalTeporingo" tabindex="-1" aria-labelledby="teporingoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header text-white" style="background-color: var(--azul-cielo);">
+                    <h5 class="modal-title fs-4" id="teporingoLabel">Ficha del Teporingo 🐰</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="text-center mb-4 p-3 img-box-modal">
+                        <img src="imagenes/TEPORINGO.jpg" alt="Ilustración de Teporingo Flat Design" class="img-fluid" style="max-height: 220px; object-fit: contain;">
+                        <p class="text-muted small mt-2 mb-0">¡Hola guardian!, si quieres conocerme más aqui te dejo información.</p>
+                    </div>
+
+                    <div class="text-center">
+                        <p class="fs-4 mb-1"><strong>Nombre común:</strong> Teporingo o Conejo de los Volcanes</p>
+                        <p class="fs-5 mb-3 text-muted"><em>Nombre científico: Romerolagus diazi</em></p>
+                        <div class="mb-4 p-2 bg-danger bg-opacity-10 text-danger rounded fw-bold d-inline-block px-4">
+                            ⚠️ ESTADO DE CONSERVACIÓN: EN PELIGRO CRÍTICO DE EXTINCIÓN
+                        </div>
+                    </div>
+
+                    <div class="text-start border-top pt-3 fs-6">
+                        <p class="mb-2">🏠 <strong>Hábitat natural:</strong> Vive a grandes alturas heladas en los valles boscosos y laderas de los volcanes centrales de México (Popocatépetl e Iztaccíhuatl), oculto entre arbustos de pasto largo llamados zacatonales.</p>
+                        <p class="mb-2">⭐ <strong>Dato Curioso e Increíble:</strong> Es el conejo nativo de menor tamaño de nuestra nación. A diferencia del silencio de otros roedores, los teporingos silban de forma muy aguda para alertar velozmente a su colonia si ven un águila o peligro rondando la madriguera.</p>
+                        <p class="mb-2">🚨 <strong>Amenazas ambientales:</strong> La generación de fogatas descontroladas e incendios accidentales por paseantes turísticos queman sus hogares de zacate, además de la basura plástica que dejan los visitantes y el frío extremo por cambio de clima.</p>
+                        <p class="mb-0">🌿 <strong>Importancia ecológica:</strong> Actúa como un tierno jardinero de las cumbres volcánicas. Al comer gran variedad de raíces y hierbas, poda la maleza de manera uniforme y siembra mediante sus desechos las semillas de los pinos montañosos.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+    <!-- ========================================== -->
+    <!-- ELEMENTOS MULTIMEDIA (ÚNICOS Y ORDENADOS) -->
+    <!-- ========================================== -->
+    <button id="btn_musica" class="btn shadow" style="position: fixed; bottom: 20px; left: 20px; z-index: 2000; background-color: var(--naranja); color: white; border-radius: 50%; width: 60px; height: 60px; font-size: 1.8rem; border: 3px solid white; border-bottom: 5px solid #d35400;">
+        🔈
+    </button>
+
+    <audio id="musica_fondo" loop src="audios/musica_de_fondo.mp3"></audio>
+    <audio id="sonido_correcto" src="audios/acierto.mp3"></audio>
+    <audio id="sonido_victoria" src="audios/ganaste.mp3"></audio>
+
+    <script>
+        // CONTROL DE AUDIO GENERAL
+        const btmMusica = document.getElementById('btn_musica');
+        const musicaFondo = document.getElementById('musica_fondo');
+        const sonidoCorrecto = document.getElementById('sonido_correcto');
+        const sonidoVictoria = document.getElementById('sonido_victoria');
+        let musicaSonando = false;
+
+        if (btmMusica) {
+            btmMusica.onclick = function() {
+                if (!musicaSonando) {
+                    musicaFondo.play().then(() => {
+                        musicaSonando = true;
+                        btmMusica.innerText = "🔊";
+                        btmMusica.classList.add("musica-activa");
+                    }).catch(error => {
+                        console.log("El navegador bloqueó el audio inicial: " + error);
+                    });
+                } else {
+                    musicaFondo.pause();
+                    musicaSonando = false;
+                    btmMusica.innerText = "🔈";
+                    btmMusica.classList.remove("musica-activa");
+                }
+            };
+        }
+
+        function reproducirEfecto(audioElemento) {
+            if (audioElemento) {
+                audioElemento.currentTime = 0;
+                audioElemento.play().catch(e => console.log("Audio bloqueado: " + e));
+            }
+        }
+
+        // JUEGO 1: TRIVIA INTERACTIVA
+        const datosQuiz = [
+            {
+                pregunta: "¿Qué significa que una especie sea ENDÉMICA de México?",
+                opciones: [
+                    "Que puede viajar y vivir en cualquier país.",
+                    "Que SOLO vive de forma natural en México y en ningún otro lugar.",
+                    "Que es un animalito que vive en zoológicos."
+                ],
+                correcta: 1
+            },
+            {
+                pregunta: "¿Qué asombroso superpoder tiene el Ajolote?",
+                opciones: [
+                    "Puede volar muy alto entre las nubes.",
+                    "Puede regenerar partes de su cuerpo heridas, como sus patas o cola.",
+                    "Puede cambiar su piel de color morado y verde."
+                ],
+                correcta: 1
+            },
+            {
+                pregunta: "¿Cuál es el principal peligro de la Vaquita Marina?",
+                opciones: [
+                    "Quedarse atrapada por accidente en redes de pesca ilegales.",
+                    "El ruido de los barcos de turistas.",
+                    "El frío extremo del océano profundo."
+                ],
+                correcta: 0
+            }
+        ];
+
+        let preguntaActual = 0;
+
+        function cargarPregunta() {
+            const contenedorPregunta = document.getElementById("quiz-pregunta");
+            const contenedorOpciones = document.getElementById("quiz-opciones");
+            if(!contenedorOpciones) return;
+            
+            contenedorOpciones.innerHTML = "";
+            let item = datosQuiz[preguntaActual];
+            contenedorPregunta.innerText = item.pregunta;
+
+            item.opciones.forEach((opcion, index) => {
+                const boton = document.createElement("div");
+                boton.className = "quiz-option";
+                boton.innerText = opcion;
+                boton.onclick = () => verificarRespuesta(index, boton);
+                contenedorOpciones.appendChild(boton);
+            });
+        }
+
+        function verificarRespuesta(indiceSeleccionado, elemento) {
+            const opcionesBotones = document.getElementsByClassName("quiz-option");
+            let indiceCorrecto = datosQuiz[preguntaActual].correcta;
+
+            for(let btn of opcionesBotones) { btn.onclick = null; }
+
+            if (indiceSeleccionado === indiceCorrecto) {
+                elemento.classList.add("correct");
+                elemento.innerText += "  (¡Correcto! 🌟)";
+                reproducirEfecto(sonidoCorrecto);
+            } else {
+                elemento.classList.add("incorrect");
+                elemento.innerText += "  (¡Sigue intentando! 🎒)";
+                opcionesBotones[indiceCorrecto].classList.add("correct");
+            }
+
+            setTimeout(() => {
+                preguntaActual++;
+                if(preguntaActual < datosQuiz.length) {
+                    cargarPregunta();
+                } else {
+                    document.getElementById("quiz-box").classList.add("d-none");
+                    document.getElementById("quiz-resultado").classList.remove("d-none");
+                    reproducirEfecto(sonidoVictoria);
+                }
+            }, 2200);
+        }
+
+        function reiniciarQuiz() {
+            preguntaActual = 0;
+            document.getElementById("quiz-box").classList.remove("d-none");
+            document.getElementById("quiz-resultado").classList.add("d-none");
+            cargarPregunta();
+        }
+
+        // JUEGO 2: MEMORAMA INTERACTIVO
+        const figurasMemorama = ['🦎', '🐬', '🐆', '🐺', '🦎', '🐬', '🐆', '🐺'];
+        let tarjetasVolteadas = [];
+        let parejasEncontradas = 0;
+        let bloqueado = false;
+
+        function inicializarMemorama() {
+            parejasEncontradas = 0; // Se corrigió typo aquí también (decía prejasEncontradas)
+            tarjetasVolteadas = [];
+            bloqueado = false;
+            const fel = document.getElementById("memorama-felicitacion");
+            if(fel) fel.classList.add("d-none");
+            
+            const figurasBarajadas = figurasMemorama.sort(() => Math.random() - 0.5);
+            const tablero = document.getElementById("tablero-memorama");
+            if(!tablero) return;
+            tablero.innerHTML = "";
+
+            figurasBarajadas.forEach((emoji, index) => {
+                const col = document.createElement("div");
+                col.className = "col";
+                col.innerHTML = `
+                    <div class="card-memo" data-emoji="${emoji}" id="memo-${index}" onclick="voltearTarjeta(this)">
+                        <div class="card-memo-inner">
+                            <div class="card-memo-front">💚</div>
+                            <div class="card-memo-back">${emoji}</div>
+                        </div>
+                    </div>
+                `;
+                tablero.appendChild(col);
+            });
+        }
+
+        function voltearTarjeta(elemento) {
+            if (bloqueado || elemento.classList.contains('flipped') || tarjetasVolteadas.includes(elemento)) return;
+
+            elemento.classList.add('flipped');
+            tarjetasVolteadas.push(elemento);
+
+            if (tarjetasVolteadas.length === 2) {
+                verificarPareja();
+            }
+        }
+
+        function verificarPareja() {
+            bloqueado = true;
+            const [tarjeta1, tarjeta2] = tarjetasVolteadas;
+
+            if (tarjeta1.dataset.emoji === tarjeta2.dataset.emoji) {
+                parejasEncontradas++;
+                tarjetasVolteadas = [];
+                bloqueado = false;
+                reproducirEfecto(sonidoCorrecto);
+
+                if (parejasEncontradas === figurasMemorama.length / 2) {
+                    document.getElementById("memorama-felicitacion").classList.remove("d-none");
+                    reproducirEfecto(sonidoVictoria);
+                }
+            } else {
+                setTimeout(() => {
+                    tarjeta1.classList.remove('flipped');
+                    tarjeta2.classList.remove('flipped');
+                    tarjetasVolteadas = [];
+                    bloqueado = false;
+                }, 1000);
+            }
+        }
+
+        window.onload = function() {
+            cargarPregunta();
+            inicializarMemorama();
+        };
+    </script>
+	
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	
+</body>
+</html>
